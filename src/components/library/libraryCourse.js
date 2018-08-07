@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-
-import * as actions from '../../actions';
+import { connect } from "react-redux";
+import * as actions from "../../actions";
 
 import Icon from '../icon';
 import Arrow from '../arrow';
@@ -21,28 +20,27 @@ class LibraryCourse extends Component {
     }
     
     handleCallback = function(status) {
-        let height = this.state.height == 0 ? 80 : 0;
+        let height = this.state.height == 0 ? 'auto' : 0;
         if(!status) {
-            document.getElementById(this.id).classList.add('library-course-selected');
+            document.getElementById(this.id).classList.add("library-course-selected");
         } else {
-            document.getElementById(this.id).classList.add('library-course-selected');
+            document.getElementById(this.id).classList.add("library-course-selected");
         }
         this.setState({ 
             status, 
             height 
         });
-        
     }.bind(this);
+    
     
     render() {
         this.id = `library-course-${this.props.id}`
         return (
             <div id={this.id} className="library-course">
                 <div className="library-course__title-check">
-                    <label className="library-course__title">{ this.props.title }</label>
+                    <div className="library-course__title">{ this.props.title }</div>
                     { Icon('fas fa-check', 'library-course__icon')}
                 </div>
-                <div className="library-course__line"></div>
                 <Arrow 
                     callback={status => this.status = this.handleCallback(status)} 
                     id={this.props.id} 
@@ -53,16 +51,13 @@ class LibraryCourse extends Component {
                     onClick={() => this.props.toggleEnrolled(this.props.id)} 
                     className="library-course__action"
                 />
-                { this.renderDescription }
                 <AnimateHeight 
                     duration={300}
                     height={this.state.height}
                 >
                     <div className="library-course__description">
                         <label>Course Description</label>
-                        <p>
-                            { this.props.description }
-                        </p>
+                        <p>{ this.props.description }</p>
                     </div>
                 </AnimateHeight>
             </div>
